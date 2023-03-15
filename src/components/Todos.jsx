@@ -1,6 +1,6 @@
 import Todo from "./Todo"
 
-const Todos = ({todos ,deleteTodo}) => {
+const Todos = ({todos ,deleteTodo, updateTodo}) => {
     
     return (
         <div>
@@ -8,7 +8,7 @@ const Todos = ({todos ,deleteTodo}) => {
             <ul className="list-group">
                 {
                     todos.map(todo => (
-                        <Todo key={todo.id} todo={todo} deleteTodo={deleteTodo}/>
+                        <Todo key={todo.id} todo={todo} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
                     ))
                 }
                 {

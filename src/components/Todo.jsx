@@ -1,4 +1,4 @@
-const Todo = ({todo, deleteTodo}) => { 
+const Todo = ({todo, deleteTodo, updateTodo}) => { 
     const {title, descripcion, estate, priority, id} = todo
     return(
         <li className="list-group-item">
@@ -10,7 +10,9 @@ const Todo = ({todo, deleteTodo}) => {
                         <button 
                             className="btn btn-sm btn-danger"
                             onClick={()=>deleteTodo(id)}>Eliminar</button>
-                        <button className="btn btn-sm btn-warning">Actualizar</button>
+                        <button 
+                            className="btn btn-sm btn-warning"
+                            onClick={()=>updateTodo(id)}>Actualizar</button>
                     </div>
                 </div>
                 <span className="badge bg-primary">{priority && 'Prioritario'}</span>

@@ -45,12 +45,22 @@ const App = ()=>{
         setTodos(newArray)
     }
 
+    const updateTodo = id =>{
+        const newArray = todos.map(todo=> {
+            if(todo.id === id){
+                todo.estate = !todo.estate
+            }
+            return todo
+        })
+        setTodos(newArray)
+    }
+
     return(
         <div className="container mb-2">
             <h1 className="my-5">Formularios</h1>
             <Formulario addTodo={addTodo}/>
             <hr/>
-            <Todos todos={todos} deleteTodo={deleteTodo}/>
+            <Todos todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
         </div>
     )
 }

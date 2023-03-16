@@ -1,39 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cat from "./components/Cat";
 import Controlado from "./components/Controlado";
 import Formulario from "./components/Formulario";
 import NoControlado from "./components/NoControlado";
 import Todos from "./components/Todos";
 
-const InitialStateTodos =[
-    {
-        id: 1,
-        title: 'titulo #01',
-        descripcion: 'descricion #01',
-        estate: false, 
-        priority: true,
-        error:null
-    },
-    {
-        id: 2,
-        title: 'titulo #02',
-        descripcion: 'descricion #02',
-        estate: true, 
-        priority: false,
-        error:null
-    },
-    {
-        id: 3,
-        title: 'titulo #03',
-        descripcion: 'descricion #03',
-        estate: false, 
-        priority: false,
-        error:null
-    }
-]
+const InitialStateTodos = JSON.parse(localStorage.getItem('todos')) || []
 
 const App = ()=>{
     const [todos, setTodos] = useState(InitialStateTodos)
+
+    useEffect(()=>{
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }, [todos])
 
     const addTodo = todo =>{
         setTodos([...todos, todo])
@@ -55,12 +34,20 @@ const App = ()=>{
         setTodos(newArray)
     }
 
+    const orderTodo = arrayTodo =>{
+        return arrayTodo.sort((a,b)=>{
+            if(a.priority===b.priority) return 0
+            if(a.priority===true) return -1
+            if(!a.priority===false) return 1
+        })
+    } 
+
     return(
         <div className="container mb-2">
             <h1 className="my-5">Formularios</h1>
             <Formulario addTodo={addTodo}/>
             <hr/>
-            <Todos todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
+            <Todos todos={orderTodo(todos)} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
         </div>
     )
 }
